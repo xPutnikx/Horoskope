@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Android app</string>
+    <string-array name="planets_array">
+        <item>Yesterday</item>
+        <item>Today</item>
+        <item>Tomorrow</item>
+    </string-array>
+    <string name="imagestring">Here would be the downloaded Image</string>
+    <string name="textstring">Here would come the downloaded text</string>
+    <string name="planet_prompt">Choose a day</string>
+</resources>
