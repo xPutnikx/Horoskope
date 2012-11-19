@@ -78,6 +78,25 @@ public class Preview extends Activity {
 				}
 				//add html parser
                 //java regexp "<div id=\"taurus\">+(\\w*|\\s*)(.+|\\w+)\\s*\\w+\\s*</div>"
+                /**
+                 import java.util.regex.Pattern;
+                 import java.util.regex.Matcher;
+                 class Module1{
+                 public static void main(String[] asd){
+                 String sourcestring = "source string to match with pattern";
+                 Pattern re = Pattern.compile("<div id=\\\"taurus\\\">+(\\w*|\\s*)(.+|\\w+)\\s*\\w+\\s*</div>");
+                 Matcher m = re.matcher(sourcestring);
+                 int mIdx = 0;
+                 while (m.find()){
+                 for( int groupIdx = 0; groupIdx < m.groupCount()+1; groupIdx++ ){
+                 System.out.println( "[" + mIdx + "][" + groupIdx + "] = " + m.group(groupIdx));
+                 }
+                 mIdx++;
+                 }
+                 }
+                 }
+
+                 */
 				messageHandler.sendMessage(message);
 			}
 		}.start();
