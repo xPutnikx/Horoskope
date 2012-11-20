@@ -19,6 +19,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Preview extends Activity {
 
@@ -31,6 +33,7 @@ public class Preview extends Activity {
     private Button buttonYesterday;
     private Button buttonToday;
     private Button buttonTomorrow;
+    private static final int SUBPARSER=6;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -150,13 +153,27 @@ public class Preview extends Activity {
 				break;
 			case 2:
 				TextView text = (TextView) findViewById(R.id.textview01);
-                Bundle extras = getIntent().getExtras();
-                int pageNumber = extras.getInt(EXT_PAGE);
                 //add parser
-				text.setText(msg.getData().getString("text"));
+                String result=textParse(msg.getData().getString("text"));
+				text.setText(result);
 				break;
 			}
 			progressDialog.dismiss();
 		}
 	};
+    private String textParse(String sourceString){
+        Bundle extras = getIntent().getExtras();
+        int pageNumber = extras.getInt(EXT_PAGE);
+        String pageName=mHoro[pageNumber];
+        Pattern pattern = Pattern.compile("<div id=\\\""+pageName+"\\\">+(\\w*|\\s*)(.+|\\w+)\\s*\\w+\\s*</div>");
+        Matcher matcher = pattern.matcher(sourceString);
+        String result="";
+        while (matcher.find()){
+            result+= matcher.group(0);
+        }
+        Pattern pattern1 = Pattern.compile("<div id=\\\""+pageName+"\\\">");
+        Matcher matcher1 = pattern1.matcher(result);
+        result = matcher1.replaceAll("");
+        return result.substring(0,result.length()-SUBPARSER);
+    }
 }
