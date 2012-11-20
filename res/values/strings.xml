@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Android app</string>
-    <string-array name="planets_array">
-        <item>Yesterday</item>
-        <item>Today</item>
-        <item>Tomorrow</item>
-    </string-array>
+
+    <string name="app_name">Horoskope</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="buttonYesterday">Yesterday</string>
+    <string name="buttonToday">Today</string>
+    <string name="buttonTomorrow">Tomorrow</string>
     <string name="imagestring">Here would be the downloaded Image</string>
     <string name="textstring">Here would come the downloaded text</string>
-    <string name="planet_prompt">Choose a day</string>
+
 </resources>

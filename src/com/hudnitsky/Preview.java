@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.*;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,28 +28,39 @@ public class Preview extends Activity {
 	private ProgressDialog progressDialog;	
 	private Bitmap bitmap = null;
 	private String text = null;
+    private Button buttonYesterday;
+    private Button buttonToday;
+    private Button buttonTomorrow;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.run);
-        Toast.makeText(super.getBaseContext(), "The day is " +
-                super.getBaseContext().getResources(), Toast.LENGTH_LONG).show();
-		Spinner spinner = (Spinner) findViewById(R.id.spinner);
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-		    this, R.array.planets_array, android.R.layout.simple_spinner_item);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinner.setAdapter(adapter);
-		spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
-        Bundle extras = getIntent().getExtras();
-        int pageNumber = extras.getInt(EXT_PAGE);
-		downloadText("http://horoscope.up2date.by/index.html",mHoro[pageNumber]);
+        buttonYesterday = (Button)findViewById(R.id.button1);
+        buttonToday = (Button)findViewById(R.id.button2);
+        buttonTomorrow = (Button) findViewById(R.id.button3);
+        buttonYesterday.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                //yesterday
+            }
+        });
+        buttonToday.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                //today
+            }
+        });
+        buttonTomorrow.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                //tomorrow
+            }
+        });
+		downloadText("http://horoscope.up2date.by/index.html");
 
 
 	}
 	
-	private void downloadText(String urlStr,String pageName) {
+	private void downloadText(String urlStr) {
 		progressDialog = ProgressDialog.show(this, "", "Fetching Text...");
 		final String url = urlStr;
 		new Thread() {
@@ -137,22 +150,13 @@ public class Preview extends Activity {
 				break;
 			case 2:
 				TextView text = (TextView) findViewById(R.id.textview01);
+                Bundle extras = getIntent().getExtras();
+                int pageNumber = extras.getInt(EXT_PAGE);
+                //add parser
 				text.setText(msg.getData().getString("text"));
 				break;
 			}
 			progressDialog.dismiss();
 		}
 	};
-	public class MyOnItemSelectedListener implements OnItemSelectedListener {
-		 
-	    public void onItemSelected(AdapterView<?> parent,
-	        View view, int pos, long id) {
-	      Toast.makeText(parent.getContext(), "The day is " +
-	          parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show();
-	    }
-	 
-	    public void onNothingSelected(AdapterView parent) {
-	      // Do nothing.
-	    }
-	}
 }

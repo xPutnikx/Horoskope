@@ -1,40 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView  
-android:id="@+id/widget33"  
-android:layout_width="fill_parent"  
-android:layout_height="fill_parent"  
-xmlns:android="http://schemas.android.com/apk/res/android"  
->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:scrollbars="vertical">
-     <TextView
+<ScrollView
+        android:id="@+id/widget33"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
-        android:text="@string/planet_prompt"
-    />
-    <Spinner 
-        android:id="@+id/spinner"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:prompt="@string/planet_prompt"
-    />
-<ImageView 
-	android:id="@+id/imageview01" 
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:tag="@string/imagestring"
-	android:cropToPadding="true" android:contentDescription="@string/imagestring" android:adjustViewBounds="true">
-	</ImageView>
-		<TextView  
-    android:id="@+id/textview01"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content"  
-    android:text="@string/textstring"/>
-</LinearLayout>
+        android:layout_height="fill_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:scrollbars="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+            <Button
+                    android:id="@+id/button1"
+                    android:layout_width="106dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.67"
+                    android:text="@string/buttonYesterday" />
+
+            <Button
+                    android:id="@+id/button2"
+                    android:layout_width="106dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/buttonToday" />
+
+            <Button
+                    android:id="@+id/button3"
+                    android:layout_width="106dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/buttonTomorrow" />
+        </LinearLayout>
+
+        <ImageView
+                android:id="@+id/imageview01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="@string/imagestring"
+                android:cropToPadding="true" android:contentDescription="@string/imagestring" android:adjustViewBounds="true">
+        </ImageView>
+        <TextView
+                android:id="@+id/textview01"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/textstring"/>
+
+    </LinearLayout>
 </ScrollView>
 
 

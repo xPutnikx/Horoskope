@@ -51,7 +51,7 @@ public class MainActivity extends ListActivity {
         intent.setClass(this, Preview.class);
         intent.putExtra(Preview.EXT_PAGE, pen);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     /**
@@ -85,7 +85,7 @@ public class MainActivity extends ListActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             if (convertView == null)
-                convertView = mLayoutInflater.inflate(R.layout.main, null);
+                convertView = mLayoutInflater.inflate(R.layout.activity_main, null);
 
             ImageView image = (ImageView)convertView.findViewById(R.id.Image);
             image.setImageResource(mImage[position]);
