@@ -162,18 +162,28 @@ public class Preview extends Activity {
 		}
 	};
     private String textParse(String sourceString){
+        String day="";
+        if(day==""){
+            day="today";
+        }
         Bundle extras = getIntent().getExtras();
         int pageNumber = extras.getInt(EXT_PAGE);
         String pageName=mHoro[pageNumber];
-        Pattern pattern = Pattern.compile("<div id=\\\""+pageName+"\\\">+(\\w*|\\s*)(.+|\\w+)\\s*\\w+\\s*</div>");
-        Matcher matcher = pattern.matcher(sourceString);
+        Pattern patternDay = Pattern.compile("<div id=\\\""+day+"\\\">+((\\w*|\\s*)(.+|\\w+)\\s*.+\\s*\\w*\\s*</div>)*\\s*</div>");
+        Matcher matcherDay = patternDay.matcher(sourceString);
         String result="";
-        while (matcher.find()){
-            result+= matcher.group(0);
+        while (matcherDay.find()){
+            result+= matcherDay.group(0);
+        }
+        Pattern pattern0 = Pattern.compile("<div id=\\\""+pageName+"\\\">+(\\w*|\\s*)(.+|\\w+)\\s*\\w+\\s*</div>");
+        Matcher matcher0 = pattern0.matcher(result);
+        String resultString="";
+        while (matcher0.find()){
+            resultString+= matcher0.group(0);
         }
         Pattern pattern1 = Pattern.compile("<div id=\\\""+pageName+"\\\">");
-        Matcher matcher1 = pattern1.matcher(result);
-        result = matcher1.replaceAll("");
-        return result.substring(0,result.length()-SUBPARSER);
+        Matcher matcher1 = pattern1.matcher(resultString);
+        resultString = matcher1.replaceAll("");
+        return resultString.substring(0,resultString.length()-SUBPARSER);
     }
 }
