@@ -40,30 +40,36 @@ public class Preview extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.run);
+        Bundle extras = getIntent().getExtras();
+        int pageNumber = extras.getInt(EXT_PAGE);
+        String pageName=mHoro[pageNumber];
+        ImageView image = (ImageView) findViewById(R.id.imageview01);
+        image.setImageResource(imageParser(pageName));
         buttonYesterday = (Button)findViewById(R.id.button1);
         buttonToday = (Button)findViewById(R.id.button2);
         buttonTomorrow = (Button) findViewById(R.id.button3);
+
         buttonYesterday.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                //yesterday
+                downloadText("http://horoscope.up2date.by/index.html","yesterday");
             }
         });
         buttonToday.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                //today
+                downloadText("http://horoscope.up2date.by/index.html","today");
             }
         });
         buttonTomorrow.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                //tomorrow
+                downloadText("http://horoscope.up2date.by/index.html","tomorrow");
             }
         });
-		downloadText("http://horoscope.up2date.by/index.html");
+		downloadText("http://horoscope.up2date.by/index.html","today");
 
 
 	}
 	
-	private void downloadText(String urlStr) {
+	private void downloadText(final String urlStr, final String day) {
 		progressDialog = ProgressDialog.show(this, "", "Fetching Text...");
 		final String url = urlStr;
 		new Thread() {
@@ -87,32 +93,13 @@ public class Preview extends Activity {
 					}
 					Bundle bundle = new Bundle();
 					bundle.putString("text", text);
+                    bundle.putString("day", day);
 					message.setData(bundle);
 					in.close();
 				}catch (IOException e) {
 					e.printStackTrace();
 				}
-				//add html parser
-                //java regexp "<div id=\"taurus\">+(\\w*|\\s*)(.+|\\w+)\\s*\\w+\\s*</div>"
-                /**
-                 import java.util.regex.Pattern;
-                 import java.util.regex.Matcher;
-                 class Module1{
-                 public static void main(String[] asd){
-                 String sourcestring = "source string to match with pattern";
-                 Pattern re = Pattern.compile("<div id=\\\"taurus\\\">+(\\w*|\\s*)(.+|\\w+)\\s*\\w+\\s*</div>");
-                 Matcher m = re.matcher(sourcestring);
-                 int mIdx = 0;
-                 while (m.find()){
-                 for( int groupIdx = 0; groupIdx < m.groupCount()+1; groupIdx++ ){
-                 System.out.println( "[" + mIdx + "][" + groupIdx + "] = " + m.group(groupIdx));
-                 }
-                 mIdx++;
-                 }
-                 }
-                 }
 
-                 */
 				messageHandler.sendMessage(message);
 			}
 		}.start();
@@ -152,20 +139,18 @@ public class Preview extends Activity {
 				img.setImageBitmap((Bitmap)(msg.getData().getParcelable("bitmap")));
 				break;
 			case 2:
+                Bundle bundle=msg.getData();
+                String day=bundle.getString("day");
 				TextView text = (TextView) findViewById(R.id.textview01);
-                //add parser
-                String result=textParse(msg.getData().getString("text"));
+                String result=textParse(msg.getData().getString("text"),day);
+                text.clearComposingText();
 				text.setText(result);
 				break;
 			}
 			progressDialog.dismiss();
 		}
 	};
-    private String textParse(String sourceString){
-        String day="";
-        if(day==""){
-            day="today";
-        }
+    private String textParse(String sourceString,String day){
         Bundle extras = getIntent().getExtras();
         int pageNumber = extras.getInt(EXT_PAGE);
         String pageName=mHoro[pageNumber];
@@ -185,5 +170,44 @@ public class Preview extends Activity {
         Matcher matcher1 = pattern1.matcher(resultString);
         resultString = matcher1.replaceAll("");
         return resultString.substring(0,resultString.length()-SUBPARSER);
+    }
+    private int imageParser(String image){
+        if(image.equals("aries")){
+            return R.drawable.aries_big;
+        }
+        if(image.equals("taurus")){
+            return R.drawable.taurus_big;
+        }
+        if(image.equals("gemini")){
+            return R.drawable.gemini_big;
+        }
+        if(image.equals("cancer")){
+            return R.drawable.cancer_big;
+        }
+        if(image.equals("leo")){
+            return R.drawable.lion_big;
+        }
+        if(image.equals("virgo")){
+            return R.drawable.virgo_big;
+        }
+        if(image.equals("libra")){
+            return R.drawable.libra_big;
+        }
+        if(image.equals("scorpio")){
+            return R.drawable.scorpio_big;
+        }
+        if(image.equals("sagittarius")){
+            return R.drawable.sagittarius_big;
+        }
+        if(image.equals("capricorn")){
+            return R.drawable.capricorn_big;
+        }
+        if(image.equals("aquarius")){
+            return R.drawable.aquarius_big;
+        }
+        if(image.equals("pisces")){
+            return R.drawable.pisces_big;
+        }
+        return 0;
     }
 }

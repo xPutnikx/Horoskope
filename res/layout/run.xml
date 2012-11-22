@@ -4,12 +4,24 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/bg"
         >
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="vertical"
                   android:layout_width="fill_parent"
                   android:layout_height="fill_parent"
-                  android:scrollbars="vertical">
+                  android:scrollbars="vertical"
+                  >
+
+        <ImageView
+                android:id="@+id/imageview01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/imagestring"
+                android:cropToPadding="true"
+                android:tag="@string/imagestring"
+                android:scaleType="centerCrop"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -34,19 +46,12 @@
                     android:layout_height="match_parent"
                     android:text="@string/buttonTomorrow" />
         </LinearLayout>
-
-        <ImageView
-                android:id="@+id/imageview01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="@string/imagestring"
-                android:cropToPadding="true" android:contentDescription="@string/imagestring" android:adjustViewBounds="true">
-        </ImageView>
         <TextView
                 android:id="@+id/textview01"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/textstring"/>
+                android:text="@string/textstring"
+                android:textColor="@android:color/white"/>
 
     </LinearLayout>
 </ScrollView>
